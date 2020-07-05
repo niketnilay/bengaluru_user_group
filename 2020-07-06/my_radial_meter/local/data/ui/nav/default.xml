@@ -1,0 +1,4 @@
+<nav search_view="search" color="#ffa500">
+  <view name="my_radial_meter_example_dashboard" default="true" />
+  <view name="search" />
+</nav>

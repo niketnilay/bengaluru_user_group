@@ -1,0 +1,64 @@
+<dashboard theme="dark">
+  <label>My Radial Meter Example Dashboard</label>
+  <row>
+    <panel>
+      <viz type="my_radial_meter.my_radial_meter">
+        <title>tokDrilldown: $tokDrilldown$ | tokTrellisName: $tokTrellisName$ | tokTrellisValue: $tokTrellisValue$</title>
+        <search>
+          <query>index=_internal sourcetype=splunkd
+| stats count by component
+| eventstats sum(count) as Total
+| eval percent=round(((count/Total)*100),2)
+| sort - percent
+| head 5
+| streamstats count as sno
+| eval component=sno.".".component
+| stats last(percent) as percent by component</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="drilldown">all</option>
+        <option name="height">238</option>
+      <!-- HIDE FORMATTER OPTIONS
+        <option name="my_radial_meter.my_radial_meter.mainColor">#006d9c</option>
+        <option name="my_radial_meter.my_radial_meter.maxValue">100</option>
+      -->
+        <option name="refresh.display">progressbar</option>
+        <option name="trellis.enabled">1</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">small</option>
+        <drilldown>
+          <set token="tokDrilldown">$row.value$</set>
+          <set token="tokTrellisName">$trellis.name$</set>
+          <set token="tokTrellisValue">$trellis.value$</set>
+        </drilldown>
+      </viz>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <viz type="my_radial_meter.my_radial_meter">
+        <title>tokSingleDrilldown: $tokSingleDrilldown$</title>
+        <search>
+          <query>index=_internal sourcetype=splunkd
+| stats count by component
+| eventstats sum(count) as Total
+| eval percent=round(((count/Total)*100),2)
+| sort - percent
+| head 1
+| fields percent</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="height">192</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+      </viz>
+    </panel>
+  </row>
+</dashboard>
