@@ -1,0 +1,37 @@
+Github:
+https://github.com/niketnilay/bengaluru_user_group/tree/master/2020-07-06/my_radial_meter
+ 
+Or
+ 
+Google Drive:
+https://drive.google.com/drive/folders/1BWi_NwBhnrOewpSJYi2MZYjesAcf276Y?usp=sharing
+ 
+________________________________________________________________________
+UPDATED BUILD STEPS for my_radial_meter_template
+________________________________________________________________________
+1. Extract my_radial_meter_template.zip to my_radial_meter_template folder.
+2. export SPLUNK_HOME=/Applications/Splunk (MAC/*nix)
+                set SPLUNK_HOME=<path> (on Windows)
+    
+3. Copy my_radial_meter folder to your $SPLUNK_HOME/etc/apps/ folder.
+4. Navigate to $SPLUNK_HOME/etc/apps/my_radial_meter/appserver/static/visualizations/my_radial_meter
+	[ONLY FOR WINDOWS] Get package.json file and update in above folder. PS: This is for path $SPLUNK_HOME to be used as %SPLUNK_HOME% in Windows.
+____________________________________________________________
+     For Mac with Xcode Editor, to Avoid npm install build error (try step 5 before step 6)
+ 
+     build error
+     gyp ERR! stack Error: `make` failed with exit code: 69
+____________________________________________________________
+ 
+5. sudo xcodebuild -license (for Mac with XCode)
+                Hit Enter (to open license agreement)
+                Press q (quit)
+                Type agree (to agree to the license)
+6. sudo npm install
+7. npm install --save d3
+8. npm install --save underscore
+9. npm install --save jquery
+10. npm run build (Splunk Restart and Browser history cleanup may be required)
+11. Validate the visualization in UI
+12. Get my_radial_meter_source.js updated code with Drilldown, Tooltip, Dark Mode and replace the content of existing JS from Github or Google Drive.
+13. Build code and validate UI (Splunk Restart and Browser history cleanup may be required)
